@@ -64,22 +64,28 @@ let item;
 router.get('/api/vendor/purchases', function(req, res){
 
   Model.Purchase.findAll({
-  }).then(function(data){
-  Model.Purchase.sum('amountPaid')
-  .then(function(data){
-  res.json({ facts: data})
+    // include: [{model: Model.Item, as: 'items'}]
   })
-
+  .then(function(data){
+    res.json({display: data})
   }).catch(function(err){
-    res.status(500).send("You have not been able to see all of the purchases")
+    console.log(err);
   })
 
 });
 
 
 router.get('/api/vendor/money', function(req, res){
+  Model.Purchase.findAll({
+  }).then(function(data){
+    Model.Purchase.sum('amountPaid')
+    .then(function(data){
+      res.json({ facts: data})
+    })
 
-  Model.Purchase.findAll()
+  }).catch(function(err){
+    res.status(500).send("You have not been able to see all of the purchases")
+  })
 
 });
 
