@@ -80,7 +80,7 @@ router.get('/api/vendor/money', function(req, res){
   }).then(function(data){
     Model.Purchase.sum('amountPaid')
     .then(function(data){
-      res.json({ facts: data})
+      res.json(data)
     })
 
   }).catch(function(err){
