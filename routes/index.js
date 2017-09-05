@@ -64,7 +64,7 @@ let item;
 router.get('/api/vendor/purchases', function(req, res){
 
   Model.Purchase.findAll({
-    // include: [{model: Model.Item, as: 'items'}]
+    include: [{model: Model.Item, as: 'Items'}]
   })
   .then(function(data){
     res.json({display: data})
