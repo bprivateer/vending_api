@@ -65,9 +65,9 @@ router.get('/api/vendor/purchases', function(req, res){
 
   Model.Purchase.findAll({
   }).then(function(data){
-  Model.Purchase.sum(amountPaid)
+  Model.Purchase.sum('amountPaid')
   .then(function(data){
-
+  res.json({ facts: data})
   })
 
   }).catch(function(err){
