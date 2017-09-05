@@ -8,17 +8,20 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      itemId: {
+        type: Sequelize.INTEGER
+      },
       nameOfItem: {
         type: Sequelize.STRING
       },
-      quantityOf: {
+      amountPaid: {
+        type:Sequelize.INTEGER
+      },
+      priceOf: {
         type: Sequelize.INTEGER
       },
-      createdAt: {
-        type: Sequelize.NOW
-      },
-      updatedAt: {
-        type: Sequelize.NOW
+      quantityOf: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

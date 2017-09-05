@@ -1,8 +1,8 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const expressSession = require('express-session');
-const routes = require('./routes/index')
+// const expressSession = require('express-session');
+const routes = require('./routes/index.js')
 
 
 const app = express();

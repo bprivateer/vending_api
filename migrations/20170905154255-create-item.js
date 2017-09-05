@@ -18,12 +18,6 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       createdAt: {
-        type: Sequelize.NOW
-      },
-      updatedAt: {
-        type: Sequelize.NOW
-      },
-      createdAt: {
         allowNull: false,
         type: Sequelize.DATE
       },
