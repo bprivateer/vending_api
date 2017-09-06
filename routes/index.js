@@ -2,14 +2,13 @@ const express = require('express');
 const Model = require('../models/index');
 const router = express.Router();
 
-console.log("we made changes");
 
 router.get('/api/customer/items', function (req, res){
 
   Model.Item.findAll({})
   .then(function(data){
     console.log(data);
-    res.json({items: data})
+    res.status(302).json({status: "success", items: data})
   }).catch(function(err){
     console.log(err);
     res.status(500).json({ error: 'message' });
@@ -42,16 +41,16 @@ let item;
       item.update({
         quantity: item.quantity - 1,
       }).then(function(data){
-        res.send("Thanks for buying candy")
+        res.status(200).send({status: "success", data: data})
       })
     }).catch(function(err){
       res.send("error", err)
     })
   } else if(req.body.paid < data.price){
 
-    res.send("You have not paid enough")
+    res.status(404).send({status: "fail"})
   } else {
-    res.send("We dont have enough")
+    res.status(400).send({status: "fail"})
   }
 }).catch(function(err){
    res.send("error", err)
@@ -67,9 +66,9 @@ router.get('/api/vendor/purchases', function(req, res){
     include: [{model: Model.Item, as: 'Items'}]
   })
   .then(function(data){
-    res.json({display: data})
+    res.json({status: "success", display: data})
   }).catch(function(err){
-    console.log(err);
+    res.send({status: "fail"})
   })
 
 });
@@ -80,11 +79,11 @@ router.get('/api/vendor/money', function(req, res){
   }).then(function(data){
     Model.Purchase.sum('amountPaid')
     .then(function(data){
-      res.json(data)
+      res.status(300).json({status: "success", data: data})
     })
 
   }).catch(function(err){
-    res.status(500).send("You have not been able to see all of the purchases")
+    res.status(500).send({status: "fail", Message: "You have not been able to see all of the purchases"})
   })
 
 });
@@ -97,9 +96,9 @@ Model.Item.create({
     quantity: Number(req.body.quantity),
     price: Number(req.body.price)
 }).then(function(data){
-  res.status(201).send("You created it!")
+  res.status(201).json({status: "success", data: data})
 }).catch(function(err){
-  res.status(400).send("You created it wrong")
+  res.status(400).send({status: "fail", message: "You created it wrong"})
 })
 });
 
@@ -114,10 +113,9 @@ router.put('/api/vendor/items/:itemId', function(req, res){
   {where: {id: req.params.itemId}})
   .then(function(data){
     console.log(data);
-    res.json({ item: data})
-    // res.status(201).send("You updated it!")
+    res.status(205).json({status: "success", data: data})
   }).catch(function(err){
-    res.status(500).send("You did not update correctly")
+    res.status(400).send({status: "fail", message: "This is why it failed."})
   })
 
 });
